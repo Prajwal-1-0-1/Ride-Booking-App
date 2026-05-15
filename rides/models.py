@@ -18,5 +18,12 @@ class Ride(models.Model):
     pickup_lon = models.FloatField()
     drop_lat = models.FloatField()
     drop_lon = models.FloatField()
-    status = models.CharField(max_length=20)
+    status = models.CharField(max_length=20, choices=[
+                                ("REQUESTED", "REQUESTED"),
+                                ("ASSIGNED", "ASSIGNED"),
+                                ("ONGOING", "ONGOING"),
+                                ("COMPLETED", "COMPLETED"),
+                                ("CANCELLED", "CANCELLED"),
+                             ], default="REQUESTED")
+    ride_type = models.CharField(max_length=20,default="normal",choices=[("NORMAL","NORMAL") , ("LUXURY","LUXURY")])  #luxury or normal
     fare = models.FloatField()
