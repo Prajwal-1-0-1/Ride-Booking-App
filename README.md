@@ -173,17 +173,6 @@ POST /create_ride/
 
 ---
 
-## Future Improvements
-
-- JWT Authentication
-- Real-time driver tracking
-- Payment integration
-- WebSocket support
-- Docker deployment
-- Rate limiting and caching
-
----
-
 ## Author
 
 **Prajwal Y S**
