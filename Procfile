@@ -1,1 +1,1 @@
-web: gunicorn  uber_backend.wsgi
+web: gunicorn uber_backend.wsgi
