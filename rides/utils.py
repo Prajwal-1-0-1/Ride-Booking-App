@@ -9,30 +9,15 @@ def dist(lat1,lat2,lon1,lon2):
 
 def get_nearest_driver(pickup_lat,pickup_lon):
      
-        from django.db import connection
+        drivers = Driver.objects.filter(is_available = True)
+        nearest = None
+        mini = 1e9
 
-        with connection.cursor() as cursor:
-            cursor.execute("""
-                SELECT id
-                FROM rides_driver
-                WHERE is_available = TRUE
-                ORDER BY
-                ST_SetSRID(
-                    ST_MakePoint(longitude, latitude),
-                    4326
-                ) <-> 
-                ST_SetSRID(
-                    ST_MakePoint(%s, %s),
-                    4326
-                )
-                LIMIT 1;
-            """, [pickup_lon, pickup_lat])
+        for driver in drivers:
+              dist = math.sqrt((driver.latitude-pickup_lat)**2 + (driver.longitude-pickup_lon)**2)
 
-            row = cursor.fetchone()
-
-            row_id = row[0]
-
-            if not row:
-                return none
-
-        return Driver.objects.get(id = row_id)
+              if dist < mini :
+                    mini = dist
+                    nearest = driver
+              
+        return nearest
