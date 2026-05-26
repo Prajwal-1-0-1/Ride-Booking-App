@@ -1,7 +1,10 @@
-# Ride Booking Backend 
+# Ride Booking Backend
 
-An Uber-like backend system built using Django and PostgreSQL that simulates the core functionalities of a ride-booking platform.  
-The project focuses on ride creation, driver allocation, ride lifecycle management, concurrency handling, and scalable backend architecture.
+An Uber-like backend system built using Django and PostgreSQL that simulates the core functionalities of a ride-booking platform.
+
+The project focuses on ride creation, automatic driver nearest assignment, ride lifecycle management, concurrency handling, and scalable backend architecture.
+
+The backend is fully deployed on Render and exposes REST-style APIs for ride operations.
 
 ---
 
@@ -10,18 +13,18 @@ The project focuses on ride creation, driver allocation, ride lifecycle manageme
 - Rider creation and management
 - Driver creation and management
 - Ride booking using pickup and drop coordinates
-- Ride creation using Rider ID
-- Automatic driver assignment
-- Ride lifecycle handling
+- Automatic nearest-driver assignment
+- Ride lifecycle management
   - Create ride
   - Start ride
   - Complete ride
   - Cancel ride
-- Multiple pricing modes
-  - Normal pricing
-  - Luxury pricing
+- Multiple ride types
+  - Normal rides
+  - Luxury rides
 - Concurrency-safe ride creation using atomic transactions
-- Spatial indexing support for efficient location-based queries
+- Django Admin integration for database management
+- Cloud deployment with PostgreSQL integration
 - REST-style backend APIs using Django
 
 ---
@@ -32,36 +35,39 @@ The project focuses on ride creation, driver allocation, ride lifecycle manageme
 - **Database:** PostgreSQL
 - **Language:** Python
 - **ORM:** Django ORM
+- **Deployment:** Render
 
 ---
 
 ## Key Backend Concepts Implemented
 
 - Atomic transactions for concurrency handling
-- Spatial indexing for optimized coordinate queries
-- Database relationship modeling
+- Database relationship modeling using Foreign Keys
 - Ride lifecycle state management
-- Service-based backend architecture
+- Driver availability management
+- Distance-based nearest driver allocation
 - PostgreSQL integration with Django ORM
+- Cloud deployment and production debugging
+
 
 ---
 
 ## Project Structure
 
 ```bash
-ride_booking/
+uber_backend/
 │
 ├── manage.py
 ├── requirements.txt
 │
-├── ride_app/
+├── rides/
+│   ├── admin.py
 │   ├── models.py
 │   ├── views.py
 │   ├── urls.py
 │   ├── utils.py
-│   ├── services.py
 │
-└── ride_booking/
+└── uber_backend/
     ├── settings.py
     ├── urls.py
     ├── wsgi.py
@@ -74,8 +80,8 @@ ride_booking/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/ride-booking-backend.git
-cd ride-booking-backend
+git clone https://github.com/Dinnerbone101/uber-backend.git
+cd uber-backend
 ```
 
 ---
@@ -114,7 +120,7 @@ Update database credentials inside `settings.py`.
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ride_booking',
+        'NAME': 'uber_backend',
         'USER': 'postgres',
         'PASSWORD': 'yourpassword',
         'HOST': 'localhost',
@@ -128,12 +134,21 @@ DATABASES = {
 ### 5. Run migrations
 
 ```bash
+python manage.py makemigrations
 python manage.py migrate
 ```
 
 ---
 
-### 6. Start the server
+### 6. Create superuser
+
+```bash
+python manage.py createsuperuser
+```
+
+---
+
+### 7. Run the server
 
 ```bash
 python manage.py runserver
@@ -145,10 +160,10 @@ python manage.py runserver
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| POST | `/create_ride/` | Create a new ride |
-| POST | `/start_ride/<ride_id>/` | Start an assigned ride |
-| POST | `/complete_ride/<ride_id>/` | Complete an ongoing ride |
-| POST | `/cancel_ride/<ride_id>/` | Cancel a ride |
+| POST | `/create-ride/<rider_id>/` | Create a new ride |
+| POST | `/start-ride/<ride_id>/` | Start an assigned ride |
+| POST | `/complete-ride/<ride_id>/` | Complete an ongoing ride |
+| POST | `/cancel-ride/<ride_id>/` | Cancel a ride |
 
 ---
 
@@ -157,19 +172,43 @@ python manage.py runserver
 ### Create Ride
 
 ```http
-POST /create_ride/
+POST /create-ride/1/
 ```
 
 ```json
 {
-    "rider_id": 1,
-    "pickup_lat": 12.9,
-    "pickup_lon": 77.5,
-    "drop_lat": 13.0,
-    "drop_lon": 77.6,
-    "pricing_mode": "luxury"
+    "pickup_lat": 12.9716,
+    "pickup_lon": 77.5946,
+    "drop_lat": 12.9352,
+    "drop_lon": 77.6245,
+    "ride_type": "LUXURY"
 }
 ```
+
+---
+
+## Admin Panel
+
+Django Admin can be accessed at:
+
+```text
+/admin/
+```
+
+The admin panel supports:
+- Rider management
+- Driver management
+- Ride monitoring
+- Database inspection
+
+---
+
+## Deployment
+
+The project is deployed on Render using:
+- Gunicorn
+- PostgreSQL
+- WhiteNoise for static file serving
 
 ---
 
