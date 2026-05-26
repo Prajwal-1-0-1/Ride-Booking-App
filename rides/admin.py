@@ -1,11 +1,6 @@
 from django.contrib import admin
 from .models import Ride, Driver, Rider
 
-admin.site.register(Ride)
-admin.site.register(Driver)
-admin.site.register(Rider)
-
-
 @admin.register(Ride)
 class RideAdmin(admin.ModelAdmin):
     list_display = (
@@ -16,8 +11,8 @@ class RideAdmin(admin.ModelAdmin):
         'drop_lon',
         'status',
         'fare',
-        'driver_id',
-        'rider_id',
+        'driver',
+        'rider',
         'ride_type',
     )
 
