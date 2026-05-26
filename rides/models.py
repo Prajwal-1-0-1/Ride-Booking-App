@@ -6,10 +6,14 @@ class Driver(models.Model):
     latitude = models.FloatField()
     longitude = models.FloatField()
     is_available = models.BooleanField(default=True)
+    def __str__(self):
+        return self.name
 
 
 class Rider(models.Model):
     name = models.CharField(max_length=100)
+    def __str__(self):
+        return self.name
 
 class Ride(models.Model):
     rider = models.ForeignKey(Rider, on_delete=models.CASCADE)
@@ -27,3 +31,5 @@ class Ride(models.Model):
                              ], default="REQUESTED")
     ride_type = models.CharField(max_length=20,default="normal",choices=[("NORMAL","NORMAL") , ("LUXURY","LUXURY")])  #luxury or normal
     fare = models.FloatField()
+    def __str__(self):
+        return f"Ride {self.id}"
