@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-(m5u_u@l6&7@c-cibw7y*vvg*%@mj#wlgs*35j7f8tfr07!i$k
 #DATABASE_URL = 'postgresql://acer:kTKJvoaD52uGOI5Oh8MkAtGQTxIAG0h8@dpg-d885al67r5hc73f9r7hg-a.oregon-postgres.render.com/uber_g8da' 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 #DATABASE_URL = 'postgresql://acer:kTKJvoaD52uGOI5Oh8MkAtGQTxIAG0h8@dpg-d885al67r5hc73f9r7hg-a.oregon-postgres.render.com/uber_g8da'
 
