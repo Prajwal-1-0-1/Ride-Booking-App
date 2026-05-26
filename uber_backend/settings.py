@@ -24,8 +24,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-(m5u_u@l6&7@c-cibw7y*vvg*%@mj#wlgs*35j7f8tfr07!i$k'
 
+#DATABASE_URL = 'postgresql://acer:kTKJvoaD52uGOI5Oh8MkAtGQTxIAG0h8@dpg-d885al67r5hc73f9r7hg-a.oregon-postgres.render.com/uber_g8da' 
+
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+
+#DATABASE_URL = 'postgresql://acer:kTKJvoaD52uGOI5Oh8MkAtGQTxIAG0h8@dpg-d885al67r5hc73f9r7hg-a.oregon-postgres.render.com/uber_g8da'
 
 ALLOWED_HOSTS = ['*']
 
@@ -79,13 +83,11 @@ WSGI_APPLICATION = 'uber_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-import dj_database_url
-import os
-
 DATABASES = {
-    'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+    'default': dj_database_url.parse(
+        'postgresql://acer:kTKJvoaD52uGOI5Oh8MkAtGQTxIAG0h8@dpg-d885al67r5hc73f9r7hg-a.oregon-postgres.render.com/uber_g8da'
+    )
 }
-
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
 
