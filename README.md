@@ -13,7 +13,7 @@ The backend is fully deployed on Render and exposes REST-style APIs for ride ope
 - Rider creation and management
 - Driver creation and management
 - Ride booking using pickup and drop coordinates
-- Automatic nearest-driver assignment
+- Automatic nearest-driver assignment(using haversine formula and bounding box)
 - Ride lifecycle management
   - Create ride
   - Start ride
