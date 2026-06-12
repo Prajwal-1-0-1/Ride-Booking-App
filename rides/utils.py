@@ -1,10 +1,28 @@
 from .models import Rider, Ride, Driver
 from django.db import connection
 import math
+from math import radians, sin, cos, sqrt, atan2
 
 def dist(lat1,lat2,lon1,lon2):
     d = (lat1-lat2)**2 + (lon1-lon2)**2
     return math.sqrt(d)
+
+def haversine(lat1, lon1, lat2, lon2):
+    R = 6371  
+
+    dlat = radians(lat2 - lat1)
+    dlon = radians(lon2 - lon1)
+
+    a = (
+        sin(dlat / 2) ** 2
+        + cos(radians(lat1))
+        * cos(radians(lat2))
+        * sin(dlon / 2) ** 2
+    )
+
+    c = 2 * atan2(sqrt(a), sqrt(1 - a))
+
+    return R * c
 
 
 def get_nearest_driver(pickup_lat,pickup_lon):
@@ -14,8 +32,7 @@ def get_nearest_driver(pickup_lat,pickup_lon):
         mini = 1e9
 
         for driver in drivers:
-              dist = math.sqrt((driver.latitude-pickup_lat)**2 + (driver.longitude-pickup_lon)**2)
-
+              dist = haversine(pickup_lat,pickup_lon,driver.latitude,driver.longitude)
               if dist < mini :
                     mini = dist
                     nearest = driver
