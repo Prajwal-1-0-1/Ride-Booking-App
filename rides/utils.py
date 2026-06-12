@@ -26,8 +26,14 @@ def haversine(lat1, lon1, lat2, lon2):
 
 
 def get_nearest_driver(pickup_lat,pickup_lon):
-     
-        drivers = Driver.objects.filter(is_available = True)
+
+        drivers = Driver.objects.filter(
+            is_available=True,
+            latitude__gte=pickup_lat - 0.05,
+            latitude__lte=pickup_lat + 0.05,
+            longitude__gte=pickup_lon - 0.05,
+            longitude__lte=pickup_lon + 0.05,
+        )
         nearest = None
         mini = 1e9
 
