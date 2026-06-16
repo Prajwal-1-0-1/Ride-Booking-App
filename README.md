@@ -1,61 +1,68 @@
 # Ride Booking Backend
 
-An Uber-like backend system built using Django and PostgreSQL that simulates the core functionalities of a ride-booking platform.
+A scalable ride-booking backend built using Django and PostgreSQL that simulates the core functionalities of a modern ride-hailing platform.
 
-The project focuses on ride creation, automatic driver nearest assignment, ride lifecycle management, concurrency handling, and scalable backend architecture.
+The project focuses on ride creation, automatic nearest-driver assignment, ride lifecycle management, concurrency handling, and scalable backend architecture.
 
-The backend is fully deployed on Render and exposes REST-style APIs for ride operations.
+The backend is fully deployed and exposes REST APIs for ride operations.
 
 ---
 
 ## Features
 
-- Rider creation and management
-- Driver creation and management
-- Ride booking using pickup and drop coordinates
-- Automatic nearest-driver assignment(using haversine formula and bounding box)
-- Ride lifecycle management
-  - Create ride
-  - Start ride
-  - Complete ride
-  - Cancel ride
-- Multiple ride types
-  - Normal rides
-  - Luxury rides
-- Concurrency-safe ride creation using atomic transactions
-- Django Admin integration for database management
-- Cloud deployment with PostgreSQL integration
-- REST-style backend APIs using Django
+* Rider creation and management
+* Driver creation and management
+* Ride booking using pickup and drop coordinates
+* Automatic nearest-driver assignment
+
+  * Haversine Formula
+  * Bounding Box Optimization
+* Ride lifecycle management
+
+  * Create Ride
+  * Start Ride
+  * Complete Ride
+  * Cancel Ride
+* Multiple ride categories
+
+  * Normal Ride
+  * Luxury Ride
+* Concurrency-safe ride creation using atomic transactions
+* Django Admin integration
+* PostgreSQL database integration
+* Production deployment on Render
+* RESTful API architecture
 
 ---
 
 ## Tech Stack
 
-- **Backend:** Django
-- **Database:** PostgreSQL
-- **Language:** Python
-- **ORM:** Django ORM
-- **Deployment:** Render
+* **Backend:** Django
+* **Database:** PostgreSQL
+* **Language:** Python
+* **ORM:** Django ORM
+* **Deployment:** Render
+* **WSGI Server:** Gunicorn
 
 ---
 
 ## Key Backend Concepts Implemented
 
-- Atomic transactions for concurrency handling
-- Database relationship modeling using Foreign Keys
-- Ride lifecycle state management
-- Driver availability management
-- Distance-based nearest driver allocation
-- PostgreSQL integration with Django ORM
-- Cloud deployment and production debugging
-
+* Atomic Transactions
+* Database Locking & Concurrency Handling
+* Driver Availability Management
+* Ride Lifecycle State Management
+* Distance-Based Driver Allocation
+* Foreign Key Relationship Modeling
+* PostgreSQL Integration
+* Cloud Deployment & Production Debugging
 
 ---
 
-## Project Structure
+## Project Architecture
 
 ```bash
-uber_backend/
+ride_booking_backend/
 │
 ├── manage.py
 ├── requirements.txt
@@ -67,7 +74,7 @@ uber_backend/
 │   ├── urls.py
 │   ├── utils.py
 │
-└── uber_backend/
+└── ride_booking_backend/
     ├── settings.py
     ├── urls.py
     ├── wsgi.py
@@ -77,16 +84,14 @@ uber_backend/
 
 ## Setup Instructions
 
-### 1. Clone the repository
+### Clone the Repository
 
 ```bash
 git clone https://github.com/Dinnerbone101/uber-backend.git
 cd uber-backend
 ```
 
----
-
-### 2. Create virtual environment
+### Create Virtual Environment
 
 #### Windows
 
@@ -102,17 +107,13 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
----
-
-### 3. Install dependencies
+### Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
----
-
-### 4. Configure PostgreSQL
+### Configure PostgreSQL
 
 Update database credentials inside `settings.py`.
 
@@ -120,7 +121,7 @@ Update database credentials inside `settings.py`.
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'uber_backend',
+        'NAME': 'ride_booking_db',
         'USER': 'postgres',
         'PASSWORD': 'yourpassword',
         'HOST': 'localhost',
@@ -129,26 +130,20 @@ DATABASES = {
 }
 ```
 
----
-
-### 5. Run migrations
+### Run Migrations
 
 ```bash
 python manage.py makemigrations
 python manage.py migrate
 ```
 
----
-
-### 6. Create superuser
+### Create Superuser
 
 ```bash
 python manage.py createsuperuser
 ```
 
----
-
-### 7. Run the server
+### Run Development Server
 
 ```bash
 python manage.py runserver
@@ -158,12 +153,12 @@ python manage.py runserver
 
 ## API Endpoints
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/create-ride/<rider_id>/` | Create a new ride |
-| POST | `/start-ride/<ride_id>/` | Start an assigned ride |
-| POST | `/complete-ride/<ride_id>/` | Complete an ongoing ride |
-| POST | `/cancel-ride/<ride_id>/` | Cancel a ride |
+| Method | Endpoint                    | Description   |
+| ------ | --------------------------- | ------------- |
+| POST   | `/create-ride/<rider_id>/`  | Create a ride |
+| POST   | `/start-ride/<ride_id>/`    | Start ride    |
+| POST   | `/complete-ride/<ride_id>/` | Complete ride |
+| POST   | `/cancel-ride/<ride_id>/`   | Cancel ride   |
 
 ---
 
@@ -187,33 +182,49 @@ POST /create-ride/1/
 
 ---
 
-## Admin Panel
+## Live Deployment
 
-Django Admin can be accessed at:
+### API Base URL
 
 ```text
-/admin/
+https://uber-backend-3-recy.onrender.com/
 ```
 
-The admin panel supports:
-- Rider management
-- Driver management
-- Ride monitoring
-- Database inspection
+### Example Endpoint
+
+```text
+https://uber-backend-3-recy.onrender.com/create-ride/1/
+```
+
+### Admin Panel
+
+```text
+https://uber-backend-3-recy.onrender.com/admin/
+```
 
 ---
 
-## Deployment
+## Django Admin Features
 
-The project is deployed on Render using:
-- Gunicorn
-- PostgreSQL
-- WhiteNoise for static file serving
+* Rider Management
+* Driver Management
+* Ride Monitoring
+* Database Inspection
+* Driver Availability Tracking
+
+---
+
+## Deployment Stack
+
+* Render
+* PostgreSQL
+* Gunicorn
+* WhiteNoise
 
 ---
 
 ## Author
 
-**Prajwal Y S**
+### Prajwal Y S
 
-- GitHub: https://github.com/Dinnerbone101
+GitHub: https://github.com/Prajwal-1-0-1
