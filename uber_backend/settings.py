@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-(m5u_u@l6&7@c-cibw7y*vvg*%@mj#wlgs*35j7f8tfr07!i$k
 #DATABASE_URL = 'postgresql://acer:kTKJvoaD52uGOI5Oh8MkAtGQTxIAG0h8@dpg-d885al67r5hc73f9r7hg-a.oregon-postgres.render.com/uber_g8da' 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False;
 
 #DATABASE_URL = 'postgresql://acer:kTKJvoaD52uGOI5Oh8MkAtGQTxIAG0h8@dpg-d885al67r5hc73f9r7hg-a.oregon-postgres.render.com/uber_g8da'
 
@@ -86,7 +86,9 @@ WSGI_APPLICATION = 'uber_backend.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.parse(
-        'postgresql://acer:kTKJvoaD52uGOI5Oh8MkAtGQTxIAG0h8@dpg-d885al67r5hc73f9r7hg-a.oregon-postgres.render.com/uber_g8da'
+        #'postgresql://acer:kTKJvoaD52uGOI5Oh8MkAtGQTxIAG0h8@dpg-d885al67r5hc73f9r7hg-a.oregon-postgres.render.com/uber_g8da'
+        #'postgresql://neondb_owner:npg_4bFLJdCij8hY@ep-spring-sky-aomdq3lr.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require'
+        os.environ.get("DATABASE_URL")
     )
 }
 # Password validation

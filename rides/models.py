@@ -33,3 +33,20 @@ class Ride(models.Model):
     fare = models.FloatField()
     def __str__(self):
         return f"Ride {self.id}"
+    
+
+    class User(models.Model):
+
+        ROLE_CHOICES = [
+            ("RIDER", "Rider"),
+            ("DRIVER", "Driver")
+        ]
+
+        username = models.CharField(max_length=100, unique=True)
+
+        password = models.CharField(max_length=255)
+
+        role = models.CharField(
+            max_length=20,
+            choices=ROLE_CHOICES
+    )
